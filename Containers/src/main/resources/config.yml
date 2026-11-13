@@ -1,0 +1,180 @@
+prefix: '&6&lКонтейнеры &7| &f'
+
+economy:
+  currency: £
+  refund-rate: 0.85
+  bet-min: 1.0
+  bet-max: 0.0
+  bet-step: 1.0
+
+anti-snipe:
+  enabled: true
+  threshold-ms: 30000
+  extend-ms: 60000
+
+dead-zone:
+  enabled: false
+  threshold-ms: 5000
+
+hologram:
+  enabled: true
+  radius: 5.0
+  height: 1.3
+  fade-step: 25
+  bar-filled: ▰
+  bar-empty: ▱
+  bar-segments: 10
+
+sounds:
+  radius: 20.0
+  tick-threshold-ms: 10000
+  bet:
+    enabled: true
+    sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    volume: 0.7
+    pitch: 1.2
+  tick:
+    enabled: true
+    sound: BLOCK_NOTE_BLOCK_HAT
+    volume: 0.6
+    pitch-normal: 1.4
+    pitch-urgent: 1.8
+    urgent-seconds: 3
+  place:
+    enabled: true
+    sound: BLOCK_AMETHYST_BLOCK_CHIME
+    volume: 0.7
+    pitch: 1.4
+  finish:
+    enabled: true
+    sound: BLOCK_AMETHYST_BLOCK_BREAK
+    volume: 0.8
+    pitch: 1.2
+
+# ==================================================
+#  АУКЦИОН (игроки создают лоты сами)
+# ==================================================
+auction:
+  enabled: true
+  max-lots-per-player: 2
+  creation-fee-percent: 5.0
+  sale-commission-percent: 10.0
+  min-duration-ms: 300000
+  max-duration-ms: 604800000
+  min-start-price: 10.0
+  allow-buyout: true
+
+messages:
+  help:
+    header: '&6&l      Контейнеры &7v2.2.0'
+    divider: '&8  ───────────────────────────────'
+    line-info: '  &e▸ /cont info &7— список контейнеров'
+    line-sell: '  &e▸ /cont sell &7— выставить лот на аукцион'
+    line-send: '  &e▸ /cont send <id> <ставка> &7— поставить'
+    line-log: '  &e▸ /cont log <id> &7— история ставок'
+    line-top: '  &e▸ /cont top [wins|spent|won|lost] &7— топ игроков'
+    admin-header: '  &aАдмин:'
+    admin-create: '  &e▸ /cont create <id> <название> <время>'
+    admin-spawner: '  &e▸ /cont spawner <id> <название> <время>'
+    admin-edit: '  &e▸ /cont edit/end/remove/cancel <id>'
+    admin-other: '  &e▸ /cont stats | reload'
+    admin-time: '&8  Время: &730s, 5m, 1h, 2d, 1h30m'
+  info:
+    header: '&6&lКонтейнеры &7| &fКонтейнеры:'
+    empty: '&7  Сейчас нет активных контейнеров.'
+    line: '&6Контейнеры &7| &e#{id} &f{name} &7| {content} &7| Ставка: {bettor} {time}'
+    bar-line: '         &7[{bar}&7]'
+    content-empty: '&7пусто'
+    content-items: '&b{count} предмет(ов)'
+    bettor-none: '&7нет'
+    bettor-set: '&a{nick} &7(&e{amount}&7)'
+    time: ' &7| &c⏱ {time}'
+    time-expired: истекает
+  bet:
+    placed-broadcast: '%prefix%&f{nick} &7поставил &e{amount} &7на контейнер &e#{id} &7({name})'
+    too-low: '%prefix%&cСтавка должна быть больше: {amount}'
+    too-low-step: '%prefix%&cСтавка должна быть больше или равна: {min}'
+    too-high: '%prefix%&cСтавка слишком большая. Максимум: {max}'
+    too-small: '%prefix%&cМинимальная ставка: {min}'
+    no-money: '%prefix%&cНедостаточно средств. Баланс: {balance}'
+    container-empty: '%prefix%&cКонтейнер пуст.'
+    container-not-found: '%prefix%&cКонтейнер #{id} не найден.'
+    input-prompt: '%prefix%&eНапиши в чат сумму ставки (или ''отмена''):'
+    input-cancel: '%prefix%&eВвод отменён.'
+    input-invalid: '%prefix%&cНеверная сумма.'
+    dead-zone: '%prefix%&cДо конца меньше {time}, ставки закрыты!'
+    prev-interrupted: '%prefix%&eВаша ставка на #{id} перебита.'
+    prev-refund: '%prefix%&eВозврат ({percent}%): &a{amount} &7(сгорело {lost})'
+    anti-snipe: '%prefix%&c⏱ Anti-snipe! &fТаймер #{id} продлён на {time}.'
+  auction:
+    disabled: '%prefix%&cАукцион отключён.'
+    too-many-lots: '%prefix%&cУ вас уже {max} активных лотов.'
+    empty: '%prefix%&cПоложите хотя бы один предмет.'
+    no-money-fee: '%prefix%&cНедостаточно средств для комиссии ({fee}).'
+    enter-start-price: '%prefix%&eВведите стартовую цену в чат (или ''отмена''):'
+    enter-duration: '%prefix%&eВведите длительность (например 1h, 30m) или ''отмена'':'
+    enter-buyout: '%prefix%&eВведите цену выкупа (0 — без выкупа) или ''отмена'':'
+    start-too-low: '%prefix%&cСтартовая цена слишком низкая. Минимум: {min}'
+    bad-duration: '%prefix%&cДлительность должна быть от {min} до {max}.'
+    bad-buyout: '%prefix%&cЦена выкупа должна быть больше стартовой.'
+    created: '%prefix%&aЛот #{id} создан. Ставка от {start}, выкуп: {buyout}.'
+    sign-given: '%prefix%&7Поставьте табличку лота на блок.'
+    cancelled: '%prefix%&eСоздание лота отменено.'
+    new-bet: '%prefix%&eВаш лот #{id}: новая ставка {amount} от {nick}.'
+    sold: '%prefix%&aВаш лот #{id} продан за {amount}. Комиссия: {fee}. Вам: {net}.'
+    bought-out: '%prefix%&aЛот #{id} выкуплен за {amount}. Вам: {net}.'
+    returned: '%prefix%&eЛот #{id} не продан. Предметы возвращены.'
+    buyout-lore: '&7Мгновенная покупка лота'
+    buyout-no-money: '%prefix%&cНедостаточно средств для выкупа ({amount}).'
+    buyout-done: '%prefix%&aВы выкупили лот #{id} за {amount}.'
+  create:
+    usage: '%prefix%&eИспользование: /cont create <id> <название> <время>'
+    bad-id: '%prefix%&cID должен быть числом.'
+    exists: '%prefix%&cID уже существует.'
+    bad-time: '%prefix%&cНеверное время. Пример: 1h, 30m, 2d'
+    created: '%prefix%&aКонтейнер #{id} создан.'
+    sign-given: '%prefix%&7Табличка выдана — поставь её на блок.'
+    edit-usage: '%prefix%&eИспользование: /cont edit <id>'
+    edit-not-found: '%prefix%&cКонтейнер #{id} не найден.'
+    sign-place: '%prefix%&aТабличка контейнера #{id} привязана. ПКМ — открыть меню.'
+    sign-cannot-edit: '%prefix%&cЭту табличку нельзя редактировать.'
+    sign-no-perm: '%prefix%&cЭту табличку может сломать только админ.'
+    gui-saved: '%prefix%&aСодержимое контейнера #{id} сохранено.'
+    gui-hint: '%prefix%&eПоложите предметы и закройте сундук для сохранения.'
+  finish:
+    winner-online: '%prefix%&aВы выиграли контейнер #{id}! Награда: {reward}'
+    winner-broadcast: '%prefix%&fКонтейнер &e#{id} &fвыиграл &a{nick} &f(ставка {amount})'
+    no-bets: '%prefix%&eКонтейнер #{id} завершён без ставок.'
+    offline-saved: '%prefix%&eПобедитель оффлайн. Награды сохранены.'
+    offline-delivered: '%prefix%&aТебе пришли награды с контейнера #{id}: {reward}'
+  log:
+    header: '&6История ставок #{id} ({name}):'
+    empty: '&7  Пока ни одной ставки.'
+    line: '  &7{i}. &e{nick} &7— &a{amount} &8в {time}'
+  top:
+    header: '&6&l      {title}'
+    divider: '&8  ───────────────────────────────'
+    empty: '&7  Пока нет данных.'
+    line: '  {medal} &e{i}. &f{nick} &7— &a{value}'
+    title-wins: Топ по победам
+    title-spent: Топ по потраченным
+    title-won: Топ по выигранным
+    title-lost: Топ по сгоревшим (15%)
+  remove:
+    removed: '%prefix%&aКонтейнер #{id} удалён.'
+    cancelled: '%prefix%&cКонтейнер #{id} отменён.'
+    cancel-refund: '%prefix%&aКонтейнер #{id} отменён. Возврат: {amount}'
+    cancel-items: '%prefix%&aПредметы #{id} возвращены.'
+    not-found: '%prefix%&cКонтейнер не найден.'
+  stats:
+    header: '&6&l      Статистика'
+    divider: '&8  ───────────────────────────────'
+    active: '&e  Активных контейнеров: &f{count}'
+    with-bets: '&e  Со ставками: &f{count}'
+    total-bets: '&e  Объём ставок: &f{amount}'
+    stats-entries: '&e  Записей в статистике: &f{count}'
+  reload-done: '%prefix%&aКонфиг перезагружен.'
+  errors:
+    only-players: '%prefix%&cТолько для игроков.'
+    no-permission: '%prefix%&cНет прав.'
+    unknown-subcommand: '%prefix%&cНеизвестная подкоманда. /cont help'

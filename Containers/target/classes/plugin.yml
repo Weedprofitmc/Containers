@@ -1,0 +1,16 @@
+name: BetterRpContainers
+version: '2.2.0'
+main: ru.betterrp.containers.ContainersPlugin
+api-version: '1.21'
+authors: [WeedProfit]
+description: Надёжная система контейнеров и аукциона
+softdepend: [Vault]
+commands:
+  cont:
+    description: Управление контейнерами
+    usage: /cont
+    aliases: [container, containers]
+permissions:
+  betterrp.containers.admin:
+    description: Админ-доступ
+    default: op
